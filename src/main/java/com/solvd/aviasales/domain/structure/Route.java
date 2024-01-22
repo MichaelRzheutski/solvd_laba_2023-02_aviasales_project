@@ -9,7 +9,8 @@ public class Route {
     private Double price;
     private Airline airline;
 
-    public Route() { }
+    public Route() {
+    }
 
     public Route(String countryFrom,
                  String countryTo,
@@ -26,6 +27,7 @@ public class Route {
     }
 
     public Route(Long id,
+
                  String countryFrom,
                  String countryTo,
                  String seatClass,
@@ -65,12 +67,12 @@ public class Route {
         this.countryTo = countryTo;
     }
 
-    public String getSeatClass() {
-        return seatClass;
+    public String getSeat_class() {
+        return seat_class;
     }
 
-    public void setSeatClass(String seatClass) {
-        this.seatClass = seatClass;
+    public void setSeat_class(String seat_class) {
+        this.seat_class = seat_class;
     }
 
     public Double getDistance() {
@@ -101,5 +103,6 @@ public class Route {
     public String toString() {
         return String.format("Route:[%s, %s-%s], %s, Class:[%s], Distance:[%s], Price:[%s]",
                 id, countryFrom, countryTo, airline, seatClass, distance, price);
+
     }
 }
