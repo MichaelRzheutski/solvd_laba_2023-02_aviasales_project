@@ -1,15 +1,9 @@
 package com.solvd.aviasales;
 
-import com.solvd.aviasales.temporary.TempMethods;
+import com.solvd.aviasales.util.console_menu.ConsoleMenu;
 
 public class Main {
     public static void main(String[] args) {
-        // run app method
-
-        // You can delete this code - checking toString() methods from hierarchy:
-        TempMethods.checkingToStringMethodsFromHierarchy();
-
-        // You can delete this code - checking CollectorActions methods:
-        TempMethods.checkingCollectorActionsMethods();
+        new ConsoleMenu().runMainMenu();
     }
 }
