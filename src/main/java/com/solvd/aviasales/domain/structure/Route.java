@@ -4,22 +4,23 @@ public class Route {
     private Long id;
     private String country_from;
     private String country_to;
-    private String seatClass;
+    private String seat_class;
     private Double distance;
     private Double price;
     private Airline airline;
 
-    public Route() { }
+    public Route() {
+    }
 
     public Route(String country_from,
                  String country_to,
-                 String seatClass,
+                 String seat_class,
                  Double distance,
                  Double price,
                  Airline airline) {
         this.country_from = country_from;
         this.country_to = country_to;
-        this.seatClass = seatClass;
+        this.seat_class = seat_class;
         this.distance = distance;
         this.price = price;
         this.airline = airline;
@@ -28,14 +29,14 @@ public class Route {
     public Route(Long id,
                  String country_from,
                  String country_to,
-                 String seatClass,
+                 String seat_class,
                  Double distance,
                  Double price,
                  Airline airline) {
         this.id = id;
         this.country_from = country_from;
         this.country_to = country_to;
-        this.seatClass = seatClass;
+        this.seat_class = seat_class;
         this.distance = distance;
         this.price = price;
         this.airline = airline;
@@ -65,12 +66,12 @@ public class Route {
         this.country_to = country_to;
     }
 
-    public String getSeatClass() {
-        return seatClass;
+    public String getSeat_class() {
+        return seat_class;
     }
 
-    public void setSeatClass(String seatClass) {
-        this.seatClass = seatClass;
+    public void setSeat_class(String seat_class) {
+        this.seat_class = seat_class;
     }
 
     public Double getDistance() {
@@ -100,6 +101,6 @@ public class Route {
     @Override
     public String toString() {
         return String.format("Route:[%s, %s-%s], %s, Class:[%s], Distance:[%s], Price:[%s]",
-                id, country_from, country_to, airline, seatClass, distance, price);
+                id, country_from, country_to, airline, seat_class, distance, price);
     }
 }
