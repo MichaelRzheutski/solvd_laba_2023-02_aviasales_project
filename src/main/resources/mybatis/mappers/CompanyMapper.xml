@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.aviasales.persistence.CompanyRepository">
+    <select id="findAll" resultMap="AllCompaniesResultMap">
+        SELECT * FROM company
+    </select>
+
+    <resultMap id="AllCompaniesResultMap" type="com.solvd.aviasales.domain.structure.Company" autoMapping="false">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <collection property="airlines"
+                    resultMap="com.solvd.aviasales.persistence.AirlineRepository.AllAirlinesResultMap">
+        </collection>
+    </resultMap>
+</mapper>

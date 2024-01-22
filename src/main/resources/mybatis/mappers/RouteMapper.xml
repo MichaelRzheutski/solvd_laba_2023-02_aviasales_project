@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.aviasales.persistence.RouteRepository">
+    <select id="findAll" resultMap="AllRoutesResultMap">
+        SELECT * FROM routes
+    </select>
+
+    <resultMap id="AllRoutesResultMap" type="com.solvd.aviasales.domain.structure.Route" autoMapping="false">
+        <id column="id" property="id"/>
+        <result column="country_from" property="country_from"/>
+        <result column="country_to" property="country_to"/>
+        <result column="seat_class" property="seat_class"/>
+        <result column="distance" property="distance"/>
+        <result column="price" property="price"/>
+        <association property="airline"
+                     resultMap="com.solvd.aviasales.persistence.AirlineRepository.AllAirlinesResultMap"/>
+    </resultMap>
+</mapper>
