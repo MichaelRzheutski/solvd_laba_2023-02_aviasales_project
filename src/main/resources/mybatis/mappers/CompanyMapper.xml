@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.aviasales.persistence.CompanyRepository">
-    <select id="findAll" resultMap="AllCompaniesResultMap">
-        SELECT * FROM company
+    <select id="getAll" resultMap="AllCompaniesResultMap">
+        SELECT id AS company_id, title AS company_title FROM company
     </select>
 
+    <insert id="save">
+        INSERT INTO company (id, title)
+        VALUES (#{id}, #{title}) AS new
+        ON DUPLICATE KEY
+        UPDATE title = new.title
+    </insert>
+
+    <update id="update">
+        UPDATE company SET
+        title = #{title},
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM company WHERE id = #{id};
+    </delete>
+
     <resultMap id="AllCompaniesResultMap" type="com.solvd.aviasales.domain.structure.Company" autoMapping="false">
-        <id column="id" property="id"/>
-        <result column="title" property="title"/>
+        <id column="company_id" property="id"/>
+        <result column="company_title" property="title"/>
         <collection property="airlines"
                     resultMap="com.solvd.aviasales.persistence.AirlineRepository.AllAirlinesResultMap">
         </collection>

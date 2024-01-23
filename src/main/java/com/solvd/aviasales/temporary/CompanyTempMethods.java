@@ -7,6 +7,6 @@ import java.util.List;
 
 public class CompanyTempMethods {
     static List<Company> getAllCompanies() {
-        return new CompanyRepositoryMybatisImpl().findAll();
+        return new CompanyRepositoryMybatisImpl().getAll();
     }
 }

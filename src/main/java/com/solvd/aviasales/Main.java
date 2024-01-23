@@ -1,6 +1,7 @@
 package com.solvd.aviasales;
 
 
+import com.solvd.aviasales.temporary.Tester;
 import com.solvd.aviasales.util.console_menu.ConsoleMenu;
 
 import com.solvd.aviasales.temporary.RouteTempMethods;
@@ -12,6 +13,8 @@ public class Main {
 //        new ConsoleMenu().runMainMenu();
 
         BasicConfigurator.configure();
+
+        Tester.perform();
 
         // Methods for testing
         RouteTempMethods.printAviasales();

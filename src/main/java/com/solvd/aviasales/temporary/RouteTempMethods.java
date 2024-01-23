@@ -11,14 +11,14 @@ import static com.solvd.aviasales.util.Printers.PRINTLN;
 
 public class RouteTempMethods {
     private static List<Route> getAllRoutes() {
-        return new RouteRepositoryMybatisImpl().findAll();
+        return new RouteRepositoryMybatisImpl().getAll();
     }
 
     public static void printAviasales() {
         List<Company> companies = CompanyTempMethods.getAllCompanies();
         List<Route> routes = getAllRoutes();
         List<Airline> airlines = AirlineTempMethods.getAllAirlines();
-
+/*
         for (Airline airline : airlines) {
             airline.setCompany(companies.get(0));
             airline.setRoutes(routes);
@@ -26,7 +26,7 @@ public class RouteTempMethods {
             for (Route route : routes) {
                 route.setAirline(airline);
             }
-        }
+        }*/
 
         for (Route route : routes) {
             PRINTLN.info(route);

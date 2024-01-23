@@ -1,12 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.aviasales.persistence.RouteRepository">
-    <select id="findAll" resultMap="AllRoutesResultMap">
-        SELECT * FROM routes
+    <sql id="mainQuery">
+        SELECT
+        r.id AS route_id, r.country_from, r.country_to, r.seat_class, r.distance, r.price,
+        a.id AS airline_id, a.title AS airline_title,
+        c.id AS company_id, c.title AS company_title
+        FROM routes r
+        JOIN airlines a ON a.id = r.airline_id
+        JOIN company c ON c.id = a.company_id
+    </sql>
+
+    <select id="getAll" resultMap="AllRoutesResultMap">
+        <include refid="mainQuery"/>
+        ORDER BY r.id
+    </select>
+    <select id="getBySeatClass" resultMap="AllRoutesResultMap">
+        <include refid="mainQuery"/>
+        WHERE r.seat_class = #{seatClass}
     </select>
 
+    <insert id="save">
+        INSERT INTO routes (id, country_from, country_to, seat_class, distance, price, airline_id)
+        VALUES (#{id}, #{countryFrom}, #{countryTo}, #{seatClass}, #{distance}, #{price}, #{airline.id}) AS new
+        ON DUPLICATE KEY
+        UPDATE country_from = new.country_from, country_to = new.country_to,
+        seat_class = new.seat_class, distance = new.distance, price = new.price, airline_id = new.airline_id
+    </insert>
+
+    <update id="update">
+        UPDATE routes SET
+        country_from = #{countryFrom},
+        country_to = #{countryTo},
+        seat_class = #{seatClass},
+        distance = #{distance},
+        price = #{price},
+        airline_id = #{airline.id}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM routes WHERE id = #{id};
+    </delete>
+
     <resultMap id="AllRoutesResultMap" type="com.solvd.aviasales.domain.structure.Route" autoMapping="false">
-        <id column="id" property="id"/>
+        <id column="route_id" property="id"/>
         <result column="country_from" property="countryFrom"/>
         <result column="country_to" property="countryTo"/>
         <result column="seat_class" property="seatClass"/>
