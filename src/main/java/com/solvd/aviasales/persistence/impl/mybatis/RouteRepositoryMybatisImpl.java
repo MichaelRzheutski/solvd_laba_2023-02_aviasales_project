@@ -1,7 +1,7 @@
 package com.solvd.aviasales.persistence.impl.mybatis;
 
+import com.solvd.aviasales.domain.structure.Airline;
 import com.solvd.aviasales.domain.structure.Route;
-import com.solvd.aviasales.persistence.CompanyRepository;
 import com.solvd.aviasales.persistence.PersistenceConfig;
 import com.solvd.aviasales.persistence.RouteRepository;
 import org.apache.ibatis.session.SqlSession;
@@ -50,6 +50,13 @@ public class RouteRepositoryMybatisImpl implements RouteRepository {
             RouteRepository routeRepository = sqlSession.getMapper(RouteRepository.class);
             routeRepository.delete(id);
             sqlSession.commit();
+        }
+    }
+
+    public List<Route> getAirlineRoutes(Airline airline) {
+        try (SqlSession sqlSession = PersistenceConfig.getSessionFactory().openSession(true)) {
+            RouteRepositoryMybatisImpl routeRepository = sqlSession.getMapper(RouteRepositoryMybatisImpl.class);
+            return routeRepository.getAirlineRoutes(airline);
         }
     }
 }

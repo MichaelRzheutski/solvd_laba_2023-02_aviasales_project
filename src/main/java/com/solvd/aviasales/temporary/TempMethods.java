@@ -6,11 +6,6 @@ import com.solvd.aviasales.domain.session.RouteCollector;
 import com.solvd.aviasales.domain.structure.Airline;
 import com.solvd.aviasales.domain.structure.Company;
 import com.solvd.aviasales.domain.structure.Route;
-import com.solvd.aviasales.persistence.impl.mybatis.AirlineRepositoryMybatisImpl;
-import com.solvd.aviasales.persistence.impl.mybatis.CompanyRepositoryMybatisImpl;
-import com.solvd.aviasales.persistence.impl.mybatis.RouteRepositoryMybatisImpl;
-
-import java.util.List;
 
 import static com.solvd.aviasales.util.Printers.*;
 
@@ -41,17 +36,5 @@ public class TempMethods {
         result.addRouteCollectionToResult(collector);
         CollectorActions.showRouteCollection(collector);
         CollectorActions.showResultCollection(result);
-    }
-
-    public static List<Company> getAllCompanies() {
-        return new CompanyRepositoryMybatisImpl().findAll();
-    }
-
-    public static List<Airline> getAllAirlines() {
-        return new AirlineRepositoryMybatisImpl().findAll();
-    }
-
-    public static List<Route> getAllRoutes() {
-        return new RouteRepositoryMybatisImpl().findAll();
     }
 }

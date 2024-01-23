@@ -3,9 +3,9 @@
 <mapper namespace="com.solvd.aviasales.persistence.RouteRepository">
     <sql id="mainQuery">
         SELECT
-        r.id AS route_id, r.country_from, r.country_to, r.seat_class, r.distance, r.price,
-        a.id AS airline_id, a.title AS airline_title,
-        c.id AS company_id, c.title AS company_title
+            r.id AS route_id, r.country_from, r.country_to, r.seat_class, r.distance, r.price,
+            a.id AS airline_id, a.title AS airline_title,
+            c.id AS company_id, c.title AS company_title
         FROM routes r
         JOIN airlines a ON a.id = r.airline_id
         JOIN company c ON c.id = a.company_id
@@ -18,6 +18,10 @@
     <select id="getBySeatClass" resultMap="AllRoutesResultMap">
         <include refid="mainQuery"/>
         WHERE r.seat_class = #{seatClass}
+    </select>
+    <select id="getAirlineRoutes" resultMap="AllRoutesResultMap">
+        <include refid="mainQuery"/>
+        WHERE a.id = #{airline.id}
     </select>
 
     <insert id="save">

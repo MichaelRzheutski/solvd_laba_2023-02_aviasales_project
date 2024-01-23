@@ -1,7 +1,7 @@
 package com.solvd.aviasales.domain.actions.entity_actions;
 
 import com.solvd.aviasales.domain.structure.Airline;
-import com.solvd.aviasales.temporary.TempMethods;
+import com.solvd.aviasales.service.AirlineService;
 
 import java.util.List;
 
@@ -11,9 +11,7 @@ public class AirlineActions implements IEntityActions {
 
     @Override
     public void showEntityEntries() {
-        // TODO: Change string
-//        List<Airline> airlines = new AirlineServiceImpl().getAll();
-        List<Airline> airlines = TempMethods.getAllAirlines();
+        List<Airline> airlines = new AirlineService().getAll();
         PRINT2LN.info("ALL AIRLINES:");
         if (airlines.size() > 0) {
             airlines.forEach(airline -> {

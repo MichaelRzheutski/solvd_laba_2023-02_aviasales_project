@@ -1,7 +1,7 @@
 package com.solvd.aviasales.domain.actions.entity_actions;
 
 import com.solvd.aviasales.domain.structure.Company;
-import com.solvd.aviasales.temporary.TempMethods;
+import com.solvd.aviasales.service.CompanyService;
 
 import java.util.List;
 
@@ -12,8 +12,7 @@ public class CompanyActions implements IEntityActions {
     @Override
     public void showEntityEntries() {
         // TODO: Change string
-//        List<Company> companies = new CompanyServiceImpl().getAll();
-        List<Company> companies = TempMethods.getAllCompanies();
+        List<Company> companies = new CompanyService().getAll();
         PRINT2LN.info("ALL COMPANIES:");
         if (companies.size() > 0) {
             companies.forEach(company -> {

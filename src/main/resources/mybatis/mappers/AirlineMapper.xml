@@ -9,6 +9,15 @@
         JOIN company c ON c.id = a.company_id;
     </select>
 
+    <select id="getCompanyAirlines" resultMap="AllAirlinesResultMap">
+        SELECT
+            a.id AS airline_id, a.title AS airline_title,
+            c.id AS company_id, c.title AS company_title
+        FROM airlines a
+        JOIN company c ON c.id = a.company_id
+        WHERE c.id = #{company.id}
+    </select>
+
     <insert id="save">
         INSERT INTO airlines (id, title, company_id)
         VALUES (#{id}, #{title}, #{company.id}) AS new

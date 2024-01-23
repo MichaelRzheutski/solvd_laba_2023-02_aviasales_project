@@ -12,9 +12,9 @@ public class Main {
     public static void main(String[] args) {
         new ConsoleMenu().runMainMenu();
 
-        BasicConfigurator.configure();
+//        BasicConfigurator.configure();
 
-        Tester.perform();
+//        Tester.perform();
 
         // Methods for testing
 //        RouteTempMethods.printAviasales();
