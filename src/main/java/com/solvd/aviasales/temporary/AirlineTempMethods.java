@@ -7,6 +7,6 @@ import java.util.List;
 
 public class AirlineTempMethods {
     static List<Airline> getAllAirlines() {
-        return new AirlineRepositoryMybatisImpl().findAll();
+        return new AirlineRepositoryMybatisImpl().getAll();
     }
 }

@@ -71,7 +71,7 @@ public class Route {
         return seatClass;
     }
 
-    public void setSeat_class(String seatClass) {
+    public void setSeatClass(String seatClass) {
         this.seatClass = seatClass;
     }
 

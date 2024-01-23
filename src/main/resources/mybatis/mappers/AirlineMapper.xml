@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.aviasales.persistence.AirlineRepository">
-    <select id="findAll" resultMap="AllAirlinesResultMap">
-        SELECT * FROM airlines
+    <select id="getAll" resultMap="AllAirlinesResultMap">
+        SELECT
+            a.id AS airline_id, a.title AS airline_title,
+            c.id AS company_id, c.title AS company_title
+        FROM airlines a
+        JOIN company c ON c.id = a.company_id;
     </select>
 
+    <insert id="save">
+        INSERT INTO airlines (id, title, company_id)
+        VALUES (#{id}, #{title}, #{company.id}) AS new
+        ON DUPLICATE KEY
+        UPDATE title = new.title, company_id = new.company_id
+    </insert>
+
+    <update id="update">
+        UPDATE airlines SET
+        title = #{title},
+        company_id = #{company.id},
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM airlines WHERE id = #{id};
+    </delete>
+
     <resultMap id="AllAirlinesResultMap" type="com.solvd.aviasales.domain.structure.Airline" autoMapping="false">
-        <id column="id" property="id"/>
-        <result column="title" property="title"/>
+        <id column="airline_id" property="id"/>
+        <result column="airline_title" property="title"/>
         <association property="company"
                      resultMap="com.solvd.aviasales.persistence.CompanyRepository.AllCompaniesResultMap"/>
         <collection property="routes"
