@@ -2,9 +2,9 @@ package com.solvd.aviasales.domain.structure;
 
 public class Route {
     private Long id;
-    private String country_from;
-    private String country_to;
-    private String seat_class;
+    private String countryFrom;
+    private String countryTo;
+    private String seatClass;
     private Double distance;
     private Double price;
     private Airline airline;
@@ -12,31 +12,32 @@ public class Route {
     public Route() {
     }
 
-    public Route(String country_from,
-                 String country_to,
-                 String seat_class,
+    public Route(String countryFrom,
+                 String countryTo,
+                 String seatClass,
                  Double distance,
                  Double price,
                  Airline airline) {
-        this.country_from = country_from;
-        this.country_to = country_to;
-        this.seat_class = seat_class;
+        this.countryFrom = countryFrom;
+        this.countryTo = countryTo;
+        this.seatClass = seatClass;
         this.distance = distance;
         this.price = price;
         this.airline = airline;
     }
 
     public Route(Long id,
-                 String country_from,
-                 String country_to,
-                 String seat_class,
+
+                 String countryFrom,
+                 String countryTo,
+                 String seatClass,
                  Double distance,
                  Double price,
                  Airline airline) {
         this.id = id;
-        this.country_from = country_from;
-        this.country_to = country_to;
-        this.seat_class = seat_class;
+        this.countryFrom = countryFrom;
+        this.countryTo = countryTo;
+        this.seatClass = seatClass;
         this.distance = distance;
         this.price = price;
         this.airline = airline;
@@ -50,20 +51,20 @@ public class Route {
         this.id = id;
     }
 
-    public String getCountry_from() {
-        return country_from;
+    public String getCountryFrom() {
+        return countryFrom;
     }
 
-    public void setCountry_from(String country_from) {
-        this.country_from = country_from;
+    public void setCountryFrom(String countryFrom) {
+        this.countryFrom = countryFrom;
     }
 
-    public String getCountry_to() {
-        return country_to;
+    public String getCountryTo() {
+        return countryTo;
     }
 
-    public void setCountry_to(String country_to) {
-        this.country_to = country_to;
+    public void setCountryTo(String countryTo) {
+        this.countryTo = countryTo;
     }
 
     public String getSeat_class() {
@@ -101,6 +102,7 @@ public class Route {
     @Override
     public String toString() {
         return String.format("Route:[%s, %s-%s], %s, Class:[%s], Distance:[%s], Price:[%s]",
-                id, country_from, country_to, airline, seat_class, distance, price);
+                id, countryFrom, countryTo, airline, seatClass, distance, price);
+
     }
 }
