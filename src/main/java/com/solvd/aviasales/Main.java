@@ -10,13 +10,13 @@ import org.apache.log4j.BasicConfigurator;
 public class Main {
 
     public static void main(String[] args) {
-//        new ConsoleMenu().runMainMenu();
+        new ConsoleMenu().runMainMenu();
 
         BasicConfigurator.configure();
 
         Tester.perform();
 
         // Methods for testing
-        RouteTempMethods.printAviasales();
+//        RouteTempMethods.printAviasales();
     }
 }

@@ -13,6 +13,7 @@ import static com.solvd.aviasales.util.Printers.*;
 
 public class ConsoleMenu {
     protected static final Logger LOGGER = LogManager.getLogger(ConsoleMenu.class);
+    protected static EntityActionsService ENTITY_ACTIONS_SERVICE = EntityActionsService.getInstance();
     private static final ResultCollector result = new ResultCollector();
 
     public ConsoleMenu runMainMenu() {
@@ -35,7 +36,7 @@ public class ConsoleMenu {
         switch (answer) {
             case (1) -> {
                 PRINT2LN.info("CHOICE OF ROUTE...");
-                // TODO: Methods to:
+                // TODO: Method to:
                 // TODO: - choose direction
                 // TODO: - get and print routes collections by Floyd
                 // TODO: - record routes collections to RouteCollector
@@ -55,12 +56,15 @@ public class ConsoleMenu {
         int answer = drawAnyMenuAndChooseMenuItem("ADMIN MENU:", AdminMenu.values());
         switch (answer) {
             case (1) -> {
+                ENTITY_ACTIONS_SERVICE.assignEntry("COMPANY");
                 return runAdminCompanyMenu();
             }
             case (2) -> {
+                ENTITY_ACTIONS_SERVICE.assignEntry("AIRLINE");
                 return runAdminAirlineMenu();
             }
             case (3) -> {
+                ENTITY_ACTIONS_SERVICE.assignEntry("ROUTE");
                 return runAdminRouteMenu();
             }
             case (4) -> {
@@ -76,23 +80,19 @@ public class ConsoleMenu {
         int answer = drawAnyMenuAndChooseMenuItem("ADMIN COMPANY MENU:", AdminCompanyMenu.values());
         switch (answer) {
             case (1) -> {
-                PRINT2LN.info("SHOWING ALL COMPANIES...");
-                // TODO: Method to show all companies
+                ENTITY_ACTIONS_SERVICE.getEntityActions().showEntityEntries();
                 return runAdminCompanyMenu();
             }
             case (2) -> {
-                PRINT2LN.info("CREATING COMPANY...");
-                // TODO: Method to create new company
+                ENTITY_ACTIONS_SERVICE.getEntityActions().registerEntityEntry();
                 return runAdminCompanyMenu();
             }
             case (3) -> {
-                PRINT2LN.info("UPDATING COMPANY...");
-                // TODO: Method to update existing company
+                ENTITY_ACTIONS_SERVICE.getEntityActions().updateEntityEntry();
                 return runAdminCompanyMenu();
             }
             case (4) -> {
-                PRINT2LN.info("DELETING COMPANY...");
-                // TODO: Method to delete existing company
+                ENTITY_ACTIONS_SERVICE.getEntityActions().removeEntityEntry();
                 return runAdminCompanyMenu();
             }
             case (5) -> {
@@ -108,23 +108,19 @@ public class ConsoleMenu {
         int answer = drawAnyMenuAndChooseMenuItem("ADMIN AIRLINE MENU:", AdminAirlineMenu.values());
         switch (answer) {
             case (1) -> {
-                PRINT2LN.info("SHOWING ALL AIRLINES...");
-                // TODO: Method to show all airlines
+                ENTITY_ACTIONS_SERVICE.getEntityActions().showEntityEntries();
                 return runAdminAirlineMenu();
             }
             case (2) -> {
-                PRINT2LN.info("CREATING AIRLINE...");
-                // TODO: Method to create new airline
+                ENTITY_ACTIONS_SERVICE.getEntityActions().registerEntityEntry();
                 return runAdminAirlineMenu();
             }
             case (3) -> {
-                PRINT2LN.info("UPDATING AIRLINE...");
-                // TODO: Method to update existing airline
+                ENTITY_ACTIONS_SERVICE.getEntityActions().updateEntityEntry();
                 return runAdminAirlineMenu();
             }
             case (4) -> {
-                PRINT2LN.info("DELETING AIRLINE...");
-                // TODO: Method to delete existing airline
+                ENTITY_ACTIONS_SERVICE.getEntityActions().removeEntityEntry();
                 return runAdminAirlineMenu();
             }
             case (5) -> {
@@ -140,23 +136,19 @@ public class ConsoleMenu {
         int answer = drawAnyMenuAndChooseMenuItem("ADMIN ROUTE MENU:", AdminRouteMenu.values());
         switch (answer) {
             case (1) -> {
-                PRINT2LN.info("SHOWING ALL ROUTES...");
-                // TODO: Method to show all routes
+                ENTITY_ACTIONS_SERVICE.getEntityActions().showEntityEntries();
                 return runAdminRouteMenu();
             }
             case (2) -> {
-                PRINT2LN.info("CREATING ROUTE...");
-                // TODO: Method to create new route
+                ENTITY_ACTIONS_SERVICE.getEntityActions().registerEntityEntry();
                 return runAdminRouteMenu();
             }
             case (3) -> {
-                PRINT2LN.info("UPDATING ROUTE...");
-                // TODO: Method to update existing route
+                ENTITY_ACTIONS_SERVICE.getEntityActions().updateEntityEntry();
                 return runAdminRouteMenu();
             }
             case (4) -> {
-                PRINT2LN.info("DELETING ROUTE...");
-                // TODO: Method to delete existing route
+                ENTITY_ACTIONS_SERVICE.getEntityActions().removeEntityEntry();
                 return runAdminRouteMenu();
             }
             case (5) -> {
@@ -181,7 +173,7 @@ public class ConsoleMenu {
     private ConsoleMenu tearDown() {
         RequestMethods.closeScanner();
         if (result.getResult().size() > 0) {
-            // TODO: Method to record ResultCollector to JSON file
+            // TODO: Implement method to save ResultCollector to JSON file
             PRINTLN.info("[Info]: Result file was written!");
         } else {
             PRINTLN.info("[Info]: Result file was not written because there were no actions!");
@@ -194,7 +186,6 @@ public class ConsoleMenu {
         PRINT2LN.info("AUTHENTICATION");
         String password = RequestMethods.getStringValueFromConsole("admin password");
         Properties property = new Properties();
-        // You need to create file "config.properties" with variable "admin.password = <YOUR PASSWORD>"
         try (FileInputStream fis = new FileInputStream("src/main/resources/config.properties")) {
             property.load(fis);
             if (password.equals(property.getProperty("admin.password"))) {
