@@ -67,12 +67,12 @@ public class Route {
         this.countryTo = countryTo;
     }
 
-    public String getSeat_class() {
-        return seat_class;
+    public String getSeatClass() {
+        return seatClass;
     }
 
-    public void setSeat_class(String seat_class) {
-        this.seat_class = seat_class;
+    public void setSeat_class(String seatClass) {
+        this.seatClass = seatClass;
     }
 
     public Double getDistance() {
