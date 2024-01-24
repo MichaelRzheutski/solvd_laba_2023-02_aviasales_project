@@ -40,7 +40,7 @@ public class AirlineRepositoryMybatisImpl implements AirlineRepository {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         try (SqlSession sqlSession = PersistenceConfig.getSessionFactory().openSession(true)) {
             AirlineRepository airlineRepository = sqlSession.getMapper(AirlineRepository.class);
             airlineRepository.delete(id);

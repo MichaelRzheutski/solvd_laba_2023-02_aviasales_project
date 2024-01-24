@@ -45,7 +45,7 @@ public class AirlineService implements GenericCRUDService<Airline> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         dao.delete(id);
     }
 }

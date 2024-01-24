@@ -45,7 +45,7 @@ public class CompanyRepositoryMybatisImpl implements CompanyRepository {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         try (SqlSession sqlSession = PersistenceConfig.getSessionFactory().openSession(true)) {
             CompanyRepository companyRepository = sqlSession.getMapper(CompanyRepository.class);
             companyRepository.delete(id);

@@ -43,7 +43,7 @@
         WHERE id = #{id}
     </update>
 
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="Long">
         DELETE FROM routes WHERE id = #{id};
     </delete>
 

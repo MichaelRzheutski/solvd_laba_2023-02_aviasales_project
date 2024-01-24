@@ -45,7 +45,7 @@ public class RouteRepositoryMybatisImpl implements RouteRepository {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         try (SqlSession sqlSession = PersistenceConfig.getSessionFactory().openSession(true)) {
             RouteRepository routeRepository = sqlSession.getMapper(RouteRepository.class);
             routeRepository.delete(id);
