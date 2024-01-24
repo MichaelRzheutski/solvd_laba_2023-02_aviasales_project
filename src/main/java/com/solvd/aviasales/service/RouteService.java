@@ -54,7 +54,7 @@ public class RouteService implements GenericCRUDService<Route> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         dao.delete(id);
     }
 }

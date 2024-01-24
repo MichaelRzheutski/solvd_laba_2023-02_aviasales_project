@@ -42,7 +42,7 @@ public class CompanyService implements GenericCRUDService<Company> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         dao.delete(id);
     }
 }

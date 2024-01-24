@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.aviasales.persistence.AirlineRepository">
-    <select id="getAll" resultMap="AllAirlinesResultMap">
-        SELECT
-            a.id AS airline_id, a.title AS airline_title,
-            c.id AS company_id, c.title AS company_title
-        FROM airlines a
-        JOIN company c ON c.id = a.company_id;
-    </select>
-
-    <select id="getCompanyAirlines" resultMap="AllAirlinesResultMap">
+    <sql id="mainQuery">
         SELECT
             a.id AS airline_id, a.title AS airline_title,
             c.id AS company_id, c.title AS company_title
         FROM airlines a
         JOIN company c ON c.id = a.company_id
-        WHERE c.id = #{company.id}
+    </sql>
+
+    <select id="getAll" resultMap="AllAirlinesResultMap">
+        <include refid="mainQuery"/>
+        ORDER BY a.id;
+    </select>
+
+    <select id="getCompanyAirlines" resultMap="AllAirlinesResultMap">
+        <include refid="mainQuery"/>
+        WHERE c.id = #{company.id};
     </select>
 
     <insert id="save">
@@ -28,11 +29,11 @@
     <update id="update">
         UPDATE airlines SET
         title = #{title},
-        company_id = #{company.id},
+        company_id = #{company.id}
         WHERE id = #{id}
     </update>
 
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="Long">
         DELETE FROM airlines WHERE id = #{id};
     </delete>
 

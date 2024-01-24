@@ -9,8 +9,7 @@ public class Route {
     private Double price;
     private Airline airline;
 
-    public Route() {
-    }
+    public Route() { }
 
     public Route(String countryFrom,
                  String countryTo,
@@ -27,7 +26,6 @@ public class Route {
     }
 
     public Route(Long id,
-
                  String countryFrom,
                  String countryTo,
                  String seatClass,
