@@ -1,6 +1,9 @@
 package com.solvd.aviasales.util.console_menu;
 
+import com.solvd.aviasales.domain.actions.CollectorActions;
+import com.solvd.aviasales.domain.actions.UserActions;
 import com.solvd.aviasales.domain.session.ResultCollector;
+import com.solvd.aviasales.domain.session.RouteCollector;
 import com.solvd.aviasales.util.console_menu.menu_enums.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,12 +38,9 @@ public class ConsoleMenu {
         int answer = drawAnyMenuAndChooseMenuItem("USER MENU:", UserMenu.values());
         switch (answer) {
             case (1) -> {
-                PRINT2LN.info("CHOICE OF ROUTE...");
-                // TODO: Method to:
-                // TODO: - choose direction
-                // TODO: - get and print routes collections by Floyd
-                // TODO: - record routes collections to RouteCollector
-                // TODO: - record RouteCollector to ResultCollector
+                RouteCollector routeCollector = UserActions.getRouteCollectionFromConsole();
+                result.addRouteCollectionToResult(routeCollector);
+                CollectorActions.showRouteCollection(routeCollector);
                 return runUserMenu();
             }
             case (2) -> {
@@ -173,10 +173,11 @@ public class ConsoleMenu {
     private ConsoleMenu tearDown() {
         RequestMethods.closeScanner();
         if (result.getResult().size() > 0) {
-            // TODO: Implement method to save ResultCollector to JSON file
-            PRINTLN.info("[Info]: Result file was written!");
+            CollectorActions.showResultCollection(result);
+            JsonParser.saveToJson(result);
+            PRINT2LN.info("[Info]: Result file was written!");
         } else {
-            PRINTLN.info("[Info]: Result file was not written because there were no actions!");
+            PRINT2LN.info("[Info]: Result file was not written because there were no actions!");
         }
         PRINTLN.info("GOOD BYE!");
         return null;
