@@ -1,7 +1,10 @@
 package com.solvd.aviasales.domain.structure;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
+@JsonIgnoreProperties(value = { "airlines" })
 public class Company {
     private Long id;
     private String title;

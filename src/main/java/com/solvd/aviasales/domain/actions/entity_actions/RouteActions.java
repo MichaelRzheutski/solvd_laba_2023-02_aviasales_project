@@ -79,7 +79,7 @@ public class RouteActions implements IEntityActions {
         return airline.getRoutes().get(RequestMethods.getNumberFromChoice("route", index - 1) - 1);
     }
 
-    protected static String getSeatClassFromConsole() {
+    public static String getSeatClassFromConsole() {
         RouteService routeService = new RouteService();
         List<String> classes = routeService.getAll()
                 .stream()
