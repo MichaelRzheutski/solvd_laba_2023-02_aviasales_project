@@ -8,10 +8,17 @@ import com.solvd.aviasales.domain.session.ResultCollector;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class JsonParser {
+<<<<<<< Updated upstream
 
     private static final String resultPath = "src/main/resources/json/result.json";
+=======
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+    private static final String resultPath = "src/main/resources/json/result_" + formatter.format(new Date()) + ".json";
+>>>>>>> Stashed changes
 
     public static void saveToJson(ResultCollector result) {
 
