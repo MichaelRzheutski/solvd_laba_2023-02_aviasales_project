@@ -99,7 +99,7 @@ public class Route {
 
     @Override
     public String toString() {
-        return String.format("Route:[%s, %s-%s], %s, Class:[%s], Distance:[%s], Price:[%s]",
+        return String.format("Route:[%s, %s-%s], %s, Class:[%s], Distance:[%skm], Price:[$%s]",
                 id, countryFrom, countryTo, airline, seatClass, distance, price);
 
     }

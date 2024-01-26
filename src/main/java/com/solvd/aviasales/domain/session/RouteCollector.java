@@ -6,35 +6,99 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RouteCollector {
-    private List<Route> minimumPriceRouteCollection;
-    private List<Route> minimumDistanceRouteCollection;
+    private String countryFrom;
+    private String countryTo;
+    private String seatClass;
+    private int transfersNumber;
+    private double minPriceRouteTotalPrice;
+    private double minDistanceRouteTotalPrice;
+    private double minPriceRouteTotalDistance;
+    private double minDistanceRouteTotalDistance;
+    private List<Route> minPriceRouteCollection;
+    private List<Route> minDistanceRouteCollection;
 
     public RouteCollector() {
-        minimumPriceRouteCollection = new ArrayList<>();
-        minimumDistanceRouteCollection = new ArrayList<>();
+        minPriceRouteCollection = new ArrayList<>();
+        minDistanceRouteCollection = new ArrayList<>();
     }
 
-    public List<Route> getMinimumPriceRouteCollection() {
-        return minimumPriceRouteCollection;
+    public String getCountryFrom() {
+        return countryFrom;
     }
 
-    public void setMinimumPriceRouteCollection(List<Route> minimumPriceRouteCollection) {
-        this.minimumPriceRouteCollection = minimumPriceRouteCollection;
+    public void setCountryFrom(String countryFrom) {
+        this.countryFrom = countryFrom;
     }
 
-    public List<Route> getMinimumDistanceRouteCollection() {
-        return minimumDistanceRouteCollection;
+    public String getCountryTo() {
+        return countryTo;
     }
 
-    public void setMinimumDistanceRouteCollection(List<Route> minimumDistanceRouteCollection) {
-        this.minimumDistanceRouteCollection = minimumDistanceRouteCollection;
+    public void setCountryTo(String countryTo) {
+        this.countryTo = countryTo;
     }
 
-    public void addRouteToMinimumPriceRouteCollection(Route route) {
-        minimumPriceRouteCollection.add(route);
+    public String getSeatClass() {
+        return seatClass;
     }
 
-    public void addRouteToMinimumDistanceRouteCollection(Route route) {
-        minimumDistanceRouteCollection.add(route);
+    public void setSeatClass(String seatClass) {
+        this.seatClass = seatClass;
+    }
+
+    public int getTransfersNumber() {
+        return transfersNumber;
+    }
+
+    public void setTransfersNumber(int transfersNumber) {
+        this.transfersNumber = transfersNumber;
+    }
+
+    public double getMinPriceRouteTotalPrice() {
+        return minPriceRouteTotalPrice;
+    }
+
+    public void setMinPriceRouteTotalPrice(double minPriceRouteTotalPrice) {
+        this.minPriceRouteTotalPrice = minPriceRouteTotalPrice;
+    }
+
+    public double getMinDistanceRouteTotalDistance() {
+        return minDistanceRouteTotalDistance;
+    }
+
+    public void setMinDistanceRouteTotalDistance(double minDistanceRouteTotalDistance) {
+        this.minDistanceRouteTotalDistance = minDistanceRouteTotalDistance;
+    }
+
+    public double getMinDistanceRouteTotalPrice() {
+        return minDistanceRouteTotalPrice;
+    }
+
+    public void setMinDistanceRouteTotalPrice(double minDistanceRouteTotalPrice) {
+        this.minDistanceRouteTotalPrice = minDistanceRouteTotalPrice;
+    }
+
+    public double getMinPriceRouteTotalDistance() {
+        return minPriceRouteTotalDistance;
+    }
+
+    public void setMinPriceRouteTotalDistance(double minPriceRouteTotalDistance) {
+        this.minPriceRouteTotalDistance = minPriceRouteTotalDistance;
+    }
+
+    public List<Route> getMinPriceRouteCollection() {
+        return minPriceRouteCollection;
+    }
+
+    public void setMinPriceRouteCollection(List<Route> minPriceRouteCollection) {
+        this.minPriceRouteCollection = minPriceRouteCollection;
+    }
+
+    public List<Route> getMinDistanceRouteCollection() {
+        return minDistanceRouteCollection;
+    }
+
+    public void setMinDistanceRouteCollection(List<Route> minDistanceRouteCollection) {
+        this.minDistanceRouteCollection = minDistanceRouteCollection;
     }
 }

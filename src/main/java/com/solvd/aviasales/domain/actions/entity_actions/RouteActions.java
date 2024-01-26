@@ -29,8 +29,8 @@ public class RouteActions implements IEntityActions {
     public void registerEntityEntry() {
         PRINT2LN.info("REGISTERING ROUTE");
         RouteService routeService = new RouteService();
-        String countryFrom = RequestMethods.getStringValueFromConsole("start country");
-        String countryTo = RequestMethods.getStringValueFromConsole("finish country");
+        String countryFrom = RequestMethods.getStringValueFromConsole("departure country");
+        String countryTo = RequestMethods.getStringValueFromConsole("arrival country");
         String seatClass = getSeatClassFromConsole();
         Double distance = RequestMethods.getDoubleValueFromConsole("distance");
         Double price = RequestMethods.getDoubleValueFromConsole("price");
@@ -73,13 +73,13 @@ public class RouteActions implements IEntityActions {
         PRINTLN.info("Choose the route:");
         int index = 1;
         for (Route route : airline.getRoutes()) {
-            printAsMenu.print(index, route.toString());
+            PRINT_AS_MENU.print(index, route.toString());
             index++;
         }
         return airline.getRoutes().get(RequestMethods.getNumberFromChoice("route", index - 1) - 1);
     }
 
-    protected static String getSeatClassFromConsole() {
+    public static String getSeatClassFromConsole() {
         RouteService routeService = new RouteService();
         List<String> classes = routeService.getAll()
                 .stream()
@@ -90,7 +90,7 @@ public class RouteActions implements IEntityActions {
         PRINTLN.info("Choose the seat class:");
         int index = 1;
         for (String seatClass : classes) {
-            printAsMenu.print(index, seatClass);
+            PRINT_AS_MENU.print(index, seatClass);
             index++;
         }
         return classes.get(RequestMethods.getNumberFromChoice("seat class", index - 1) - 1);
@@ -103,11 +103,11 @@ public class RouteActions implements IEntityActions {
         List<Field> routeFields = new ArrayList<>();
         for (Field routeField : allRouteFields) {
             if (!routeField.getName().equals("id")) {
-                printAsMenu.print(index, routeField.getName());
+                PRINT_AS_MENU.print(index, routeField.getName());
                 routeFields.add(routeField);
                 index++;
             }
         }
-        return routeFields.get(RequestMethods.getNumberFromChoice("field number", index - 1) - 1);
+        return routeFields.get(RequestMethods.getNumberFromChoice("field", index - 1) - 1);
     }
 }
