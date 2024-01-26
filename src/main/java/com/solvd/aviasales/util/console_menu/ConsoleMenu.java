@@ -4,6 +4,7 @@ import com.solvd.aviasales.domain.actions.CollectorActions;
 import com.solvd.aviasales.domain.actions.UserActions;
 import com.solvd.aviasales.domain.session.ResultCollector;
 import com.solvd.aviasales.domain.session.RouteCollector;
+import com.solvd.aviasales.util.JsonParser;
 import com.solvd.aviasales.util.console_menu.menu_enums.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +18,7 @@ import static com.solvd.aviasales.util.Printers.*;
 public class ConsoleMenu {
     protected static final Logger LOGGER = LogManager.getLogger(ConsoleMenu.class);
     protected static EntityActionsService ENTITY_ACTIONS_SERVICE = EntityActionsService.getInstance();
-    private static final ResultCollector result = new ResultCollector();
+    private static final ResultCollector RESULT = new ResultCollector();
 
     public ConsoleMenu runMainMenu() {
         int answer = drawAnyMenuAndChooseMenuItem("MAIN MENU:", MainMenu.values());
@@ -38,9 +39,9 @@ public class ConsoleMenu {
         int answer = drawAnyMenuAndChooseMenuItem("USER MENU:", UserMenu.values());
         switch (answer) {
             case (1) -> {
-                RouteCollector routeCollector = UserActions.getRouteCollectionFromConsole();
-                result.addRouteCollectionToResult(routeCollector);
-                CollectorActions.showRouteCollection(routeCollector);
+                RouteCollector collector = UserActions.getRouteCollectionFromConsole();
+                RESULT.addRouteCollectionToResult(collector);
+                CollectorActions.showRouteCollection(collector);
                 return runUserMenu();
             }
             case (2) -> {
@@ -172,10 +173,9 @@ public class ConsoleMenu {
 
     private ConsoleMenu tearDown() {
         RequestMethods.closeScanner();
-        if (result.getResult().size() > 0) {
-            CollectorActions.showResultCollection(result);
-            JsonParser.saveToJson(result);
-            PRINT2LN.info("[Info]: Result file was written!");
+        if (RESULT.getResult().size() > 0) {
+            CollectorActions.showResultCollection(RESULT);
+            JsonParser.saveToJson(RESULT);
         } else {
             PRINT2LN.info("[Info]: Result file was not written because there were no actions!");
         }

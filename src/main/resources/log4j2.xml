@@ -39,10 +39,6 @@
         <Logger name="ln_InsteadOfSOUT_ln" level="info" additivity="false">
             <AppenderRef ref="ln_InsteadOfSOUT_ln"/>
         </Logger>
-<!--        <Logger name="com.solvd.aviasales." level="error" additivity="false">-->
-<!--            <AppenderRef ref="rollingFile"/>-->
-<!--            <AppenderRef ref="InsteadOfSOUT_ln_For_Errors"/>-->
-<!--        </Logger>-->
         <Logger name="com.solvd.aviasales.util.console_menu.ConsoleMenu" level="error" additivity="false">
             <AppenderRef ref="rollingFile"/>
             <AppenderRef ref="InsteadOfSOUT_ln_For_Errors"/>

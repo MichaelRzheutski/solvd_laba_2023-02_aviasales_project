@@ -15,7 +15,7 @@ import java.util.List;
 import static com.solvd.aviasales.util.Printers.*;
 
 public class UserActions {
-    private final static IPrintAsMenu<Integer, String> printAsMenu = (index, line) -> PRINTLN.info(String.format("[%d]: %s", index, line));
+    private final static IPrintAsMenu<Integer, String> PRINT_AS_MENU = (index, line) -> PRINTLN.info(String.format("[%d]: %s", index, line));
 
     public static RouteCollector getRouteCollectionFromConsole() {
         PRINT2LN.info("ROUTE SEARCH");
@@ -23,9 +23,10 @@ public class UserActions {
         RouteService routeService = new RouteService();
         String seatClass = RouteActions.getSeatClassFromConsole();
         List<Route> routes = routeService.getBySeatClass(seatClass);
-        String countryFrom = getCountryFromConsole(routes, "start");
-        String countryTo = getCountryFromConsole(routes, "finish");
+        String countryFrom = getCountryFromConsole(routes, "departure");
+        String countryTo = getCountryFromConsole(routes, "arrival");
         int transfersNumber = getTransfersNumberFromConsole();
+        PRINTLN.info("");
         List<Route> minimumPriceCollection = null;
         List<Route> minimumDistanceCollection = null;
         switch (transfersNumber) {
@@ -47,20 +48,30 @@ public class UserActions {
         collector.setSeatClass(seatClass);
         collector.setTransfersNumber(transfersNumber);
         if (minimumPriceCollection != null) {
-            collector.setMinimumPriceRouteCollection(minimumPriceCollection);
-            double totalPrice = collector.getMinimumPriceRouteCollection()
+            collector.setMinPriceRouteCollection(minimumPriceCollection);
+            double minPriceTotalPrice = collector.getMinPriceRouteCollection()
                     .stream()
                     .mapToDouble(Route::getPrice)
                     .sum();
-            collector.setTotalPrice(totalPrice);
-        }
-        if (minimumDistanceCollection != null) {
-            collector.setMinimumDistanceRouteCollection(minimumDistanceCollection);
-            double totalDistance = collector.getMinimumDistanceRouteCollection()
+            collector.setMinPriceRouteTotalPrice(minPriceTotalPrice);
+            double minPriceTotalDistance = collector.getMinPriceRouteCollection()
                     .stream()
                     .mapToDouble(Route::getDistance)
                     .sum();
-            collector.setTotalDistance(totalDistance);
+            collector.setMinPriceRouteTotalDistance(minPriceTotalDistance);
+        }
+        if (minimumDistanceCollection != null) {
+            collector.setMinDistanceRouteCollection(minimumDistanceCollection);
+            double minDistanceTotalDistance = collector.getMinDistanceRouteCollection()
+                    .stream()
+                    .mapToDouble(Route::getDistance)
+                    .sum();
+            collector.setMinDistanceRouteTotalDistance(minDistanceTotalDistance);
+            double minDistanceTotalPrice = collector.getMinDistanceRouteCollection()
+                    .stream()
+                    .mapToDouble(Route::getPrice)
+                    .sum();
+            collector.setMinDistanceRouteTotalPrice(minDistanceTotalPrice);
         }
         return collector;
     }
@@ -70,19 +81,19 @@ public class UserActions {
         PRINTLN.info(String.format("Choose %s country:", point));
         int index = 1;
         for (String country : countries) {
-            printAsMenu.print(index, country);
+            PRINT_AS_MENU.print(index, country);
             index++;
         }
         return countries.get(RequestMethods.getNumberFromChoice("country", index - 1) - 1);
     }
 
     private static int getTransfersNumberFromConsole() {
-        PRINTLN.info("Choose the transfers number:");
+        PRINTLN.info("Choose maximum number of transfers:");
         int index = 1;
         for (Transfer transfer : Transfer.values()) {
-            printAsMenu.print(index, transfer.getTitle());
+            PRINT_AS_MENU.print(index, transfer.getTitle());
             index++;
         }
-        return RequestMethods.getNumberFromChoice("transfers number", index - 1);
+        return RequestMethods.getNumberFromChoice("number of transfers", index - 1);
     }
 }

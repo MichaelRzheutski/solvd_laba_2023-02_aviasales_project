@@ -71,7 +71,7 @@ public class AirlineActions implements IEntityActions {
         PRINTLN.info("Choose the airline:");
         int index = 1;
         for (Airline airline : airlines) {
-            printAsMenu.print(index, airline.getTitle());
+            PRINT_AS_MENU.print(index, airline.getTitle());
             index++;
         }
         return airlines.get(RequestMethods.getNumberFromChoice("airline", index - 1) - 1);
@@ -84,11 +84,11 @@ public class AirlineActions implements IEntityActions {
         List<Field> airlineFields = new ArrayList<>();
         for (Field airlineField : allAirlineFields) {
             if (!airlineField.getName().equals("id") && !airlineField.getName().equals("routes")) {
-                printAsMenu.print(index, airlineField.getName());
+                PRINT_AS_MENU.print(index, airlineField.getName());
                 airlineFields.add(airlineField);
                 index++;
             }
         }
-        return airlineFields.get(RequestMethods.getNumberFromChoice("field number", index - 1) - 1);
+        return airlineFields.get(RequestMethods.getNumberFromChoice("field", index - 1) - 1);
     }
 }
