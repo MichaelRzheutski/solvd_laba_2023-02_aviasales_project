@@ -13,12 +13,12 @@ import java.util.Scanner;
 
 public class RequestMethods {
     protected static final Logger LOGGER = LogManager.getLogger(RequestMethods.class);
-    private static final Scanner scanner = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     public static int requestingInfoWithChoice(String text, int menuItemsNumber)
             throws EmptyInputException, NumberFormatException, MenuItemOutOfBoundsException {
         PRINT.info(text);
-        String answer = scanner.nextLine();
+        String answer = SCANNER.nextLine();
         if (answer.isEmpty()) {
             throw new EmptyInputException("[EmptyInputException]: Entered data can not be empty!");
         }
@@ -47,7 +47,7 @@ public class RequestMethods {
 
     public static String requestingInfoString(String text) throws EmptyInputException, StringFormatException {
         PRINT.info(text);
-        String answer = scanner.nextLine();
+        String answer = SCANNER.nextLine();
         if (answer.isEmpty()) {
             throw new EmptyInputException("[EmptyInputException]: Entered data can not be empty!");
         }
@@ -60,7 +60,7 @@ public class RequestMethods {
     public static double requestingInfoDouble(String text)
             throws EmptyInputException, NumberFormatException, NegativeNumberException {
         PRINT.info(text);
-        String answer = scanner.nextLine();
+        String answer = SCANNER.nextLine();
         if (answer.isEmpty()) {
             throw new EmptyInputException("[EmptyInputException]: Entered data can not be empty!");
         }
@@ -100,6 +100,6 @@ public class RequestMethods {
     }
 
     static void closeScanner() {
-        scanner.close();
+        SCANNER.close();
     }
 }

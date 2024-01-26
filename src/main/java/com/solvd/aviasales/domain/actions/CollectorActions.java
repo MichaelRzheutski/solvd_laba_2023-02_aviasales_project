@@ -11,20 +11,22 @@ public class CollectorActions {
 
     public static void showRouteCollection(RouteCollector collector) {
         PRINTLN.info("MINIMUM PRICE ROUTE COLLECTION:");
-        PRINTLN.info(String.format("\tRoute: %s-%s, %s class, %d transfers",
+        PRINTLN.info(String.format("\tRoute: %s-%s, %s class, transfers: no more than %d",
                 collector.getCountryFrom(), collector.getCountryTo(), collector.getSeatClass(), collector.getTransfersNumber()));
-        if (collector.getMinimumPriceRouteCollection().size() > 0) {
-            collector.getMinimumPriceRouteCollection().forEach(route -> PRINTLN.info("\t- " + route));
-            PRINTLN.info(String.format("\tTotal price: $%S", collector.getTotalPrice()));
+        if (collector.getMinPriceRouteCollection().size() > 0) {
+            collector.getMinPriceRouteCollection().forEach(route -> PRINTLN.info(String.format("\t- %s", route)));
+            PRINTLN.info(String.format("\tTotal price: $%s", collector.getMinPriceRouteTotalPrice()));
+            PRINTLN.info(String.format("\tTotal distance: %skm", collector.getMinPriceRouteTotalDistance()));
         } else {
             PRINTLN.info("\t(no routes)");
         }
         PRINTLN.info("MINIMUM DISTANCE ROUTE COLLECTION:");
-        PRINTLN.info(String.format("\tRoute: %s-%s, %s class, %d transfers",
+        PRINTLN.info(String.format("\tRoute: %s-%s, %s class, transfers: no more than %d",
                 collector.getCountryFrom(), collector.getCountryTo(), collector.getSeatClass(), collector.getTransfersNumber()));
-        if (collector.getMinimumDistanceRouteCollection().size() > 0) {
-            collector.getMinimumDistanceRouteCollection().forEach(route -> PRINTLN.info("\t- " + route));
-            PRINTLN.info(String.format("\tTotal distance: %Skm", collector.getTotalDistance()));
+        if (collector.getMinDistanceRouteCollection().size() > 0) {
+            collector.getMinDistanceRouteCollection().forEach(route -> PRINTLN.info(String.format("\t- %s", route)));
+            PRINTLN.info(String.format("\tTotal price: $%s", collector.getMinDistanceRouteTotalPrice()));
+            PRINTLN.info(String.format("\tTotal distance: %skm", collector.getMinDistanceRouteTotalDistance()));
         } else {
             PRINTLN.info("\t(no routes)");
         }
@@ -35,7 +37,7 @@ public class CollectorActions {
         AtomicInteger index = new AtomicInteger(1);
         result.getResult().forEach(collector -> {
             PRINTLN.info("-----");
-            PRINTLN.info(index + " RESULT COLLECTION:");
+            PRINTLN.info(String.format("%s RESULT COLLECTION:", index));
             showRouteCollection(collector);
             index.getAndIncrement();
         });

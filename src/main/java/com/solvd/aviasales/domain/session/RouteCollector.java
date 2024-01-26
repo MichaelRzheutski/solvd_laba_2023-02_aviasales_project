@@ -10,14 +10,16 @@ public class RouteCollector {
     private String countryTo;
     private String seatClass;
     private int transfersNumber;
-    private double totalPrice;
-    private double totalDistance;
-    private List<Route> minimumPriceRouteCollection;
-    private List<Route> minimumDistanceRouteCollection;
+    private double minPriceRouteTotalPrice;
+    private double minDistanceRouteTotalPrice;
+    private double minPriceRouteTotalDistance;
+    private double minDistanceRouteTotalDistance;
+    private List<Route> minPriceRouteCollection;
+    private List<Route> minDistanceRouteCollection;
 
     public RouteCollector() {
-        minimumPriceRouteCollection = new ArrayList<>();
-        minimumDistanceRouteCollection = new ArrayList<>();
+        minPriceRouteCollection = new ArrayList<>();
+        minDistanceRouteCollection = new ArrayList<>();
     }
 
     public String getCountryFrom() {
@@ -52,35 +54,51 @@ public class RouteCollector {
         this.transfersNumber = transfersNumber;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public double getMinPriceRouteTotalPrice() {
+        return minPriceRouteTotalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setMinPriceRouteTotalPrice(double minPriceRouteTotalPrice) {
+        this.minPriceRouteTotalPrice = minPriceRouteTotalPrice;
     }
 
-    public double getTotalDistance() {
-        return totalDistance;
+    public double getMinDistanceRouteTotalDistance() {
+        return minDistanceRouteTotalDistance;
     }
 
-    public void setTotalDistance(double totalDistance) {
-        this.totalDistance = totalDistance;
+    public void setMinDistanceRouteTotalDistance(double minDistanceRouteTotalDistance) {
+        this.minDistanceRouteTotalDistance = minDistanceRouteTotalDistance;
     }
 
-    public List<Route> getMinimumPriceRouteCollection() {
-        return minimumPriceRouteCollection;
+    public double getMinDistanceRouteTotalPrice() {
+        return minDistanceRouteTotalPrice;
     }
 
-    public void setMinimumPriceRouteCollection(List<Route> minimumPriceRouteCollection) {
-        this.minimumPriceRouteCollection = minimumPriceRouteCollection;
+    public void setMinDistanceRouteTotalPrice(double minDistanceRouteTotalPrice) {
+        this.minDistanceRouteTotalPrice = minDistanceRouteTotalPrice;
     }
 
-    public List<Route> getMinimumDistanceRouteCollection() {
-        return minimumDistanceRouteCollection;
+    public double getMinPriceRouteTotalDistance() {
+        return minPriceRouteTotalDistance;
     }
 
-    public void setMinimumDistanceRouteCollection(List<Route> minimumDistanceRouteCollection) {
-        this.minimumDistanceRouteCollection = minimumDistanceRouteCollection;
+    public void setMinPriceRouteTotalDistance(double minPriceRouteTotalDistance) {
+        this.minPriceRouteTotalDistance = minPriceRouteTotalDistance;
+    }
+
+    public List<Route> getMinPriceRouteCollection() {
+        return minPriceRouteCollection;
+    }
+
+    public void setMinPriceRouteCollection(List<Route> minPriceRouteCollection) {
+        this.minPriceRouteCollection = minPriceRouteCollection;
+    }
+
+    public List<Route> getMinDistanceRouteCollection() {
+        return minDistanceRouteCollection;
+    }
+
+    public void setMinDistanceRouteCollection(List<Route> minDistanceRouteCollection) {
+        this.minDistanceRouteCollection = minDistanceRouteCollection;
     }
 }

@@ -6,7 +6,9 @@
 
 **Course:** *2023-02*
 
-**Students:** *Team work*
+**Task:** *Aviasales console application*
+
+**Team:** *Alexey Bobrikov, Michael Rzheutski, Pavel Dashchynski*
 
 ---
 

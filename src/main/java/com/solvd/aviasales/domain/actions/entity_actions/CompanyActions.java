@@ -76,7 +76,7 @@ public class CompanyActions implements IEntityActions {
         PRINTLN.info("Choose the company:");
         int index = 1;
         for (Company company : companies) {
-            printAsMenu.print(index, company.getTitle());
+            PRINT_AS_MENU.print(index, company.getTitle());
             index++;
         }
         return companies.get(RequestMethods.getNumberFromChoice("company", index - 1) - 1);
@@ -89,11 +89,11 @@ public class CompanyActions implements IEntityActions {
         List<Field> companyFields = new ArrayList<>();
         for (Field companyField : allCompanyFields) {
             if (!companyField.getName().equals("id") && !companyField.getName().equals("airlines")) {
-                printAsMenu.print(index, companyField.getName());
+                PRINT_AS_MENU.print(index, companyField.getName());
                 companyFields.add(companyField);
                 index++;
             }
         }
-        return companyFields.get(RequestMethods.getNumberFromChoice("field number", index - 1) - 1);
+        return companyFields.get(RequestMethods.getNumberFromChoice("field", index - 1) - 1);
     }
 }
