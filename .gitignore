@@ -3,4 +3,5 @@ config.properties
 target/
 lib/
 logs/
-result.json
+src/main/resources/json/
+.DS_Store

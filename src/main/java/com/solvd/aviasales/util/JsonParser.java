@@ -7,12 +7,15 @@ import com.solvd.aviasales.domain.session.ResultCollector;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.solvd.aviasales.util.Printers.*;
 
 public class JsonParser {
     private static final String resultDirectoryPath = "src/main/resources/json";
-    private static final String resultFilePath = "src/main/resources/json/result.json";
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+    private static final String resultFilePath = "src/main/resources/json/result_" + formatter.format(new Date()) + ".json";
 
     public static void saveToJson(ResultCollector result) {
         File directory = new File(resultDirectoryPath);
