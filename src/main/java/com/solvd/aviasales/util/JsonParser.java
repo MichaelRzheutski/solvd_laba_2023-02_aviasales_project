@@ -13,14 +13,14 @@ import java.util.Date;
 import static com.solvd.aviasales.util.Printers.PRINT2LN;
 
 public class JsonParser {
-    private static final String resultDirectoryPath = "src/main/resources/json";
+    private static final String resultDirectoryPath = "src/main/resources/results/json";
     private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-    private static final String resultFilePath = "src/main/resources/json/result_" + formatter.format(new Date()) + ".json";
+    private static final String resultFilePath = "src/main/resources/results/json/result_" + formatter.format(new Date()) + ".json";
 
     public static File saveToJson(ResultCollector result) {
         File directory = new File(resultDirectoryPath);
         if (!directory.exists()) {
-            directory.mkdir();
+            directory.mkdirs();
         }
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
