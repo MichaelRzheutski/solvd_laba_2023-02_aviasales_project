@@ -1,10 +1,18 @@
 package com.solvd.aviasales.domain.session;
 
 import com.solvd.aviasales.domain.structure.Route;
+import jakarta.xml.bind.annotation.XmlAccessOrder;
+import jakarta.xml.bind.annotation.XmlAccessorOrder;
+import jakarta.xml.bind.annotation.XmlType;
 
 import java.util.ArrayList;
 import java.util.List;
 
+//@XmlAccessorOrder(XmlAccessOrder.UNDEFINED)
+@XmlType(propOrder={"countryFrom", "countryTo", "seatClass", "transfersNumber",
+                    "minPriceRouteTotalPrice", "minDistanceRouteTotalPrice",
+                    "minPriceRouteTotalDistance", "minDistanceRouteTotalDistance",
+                    "minPriceRouteCollection", "minDistanceRouteCollection"})
 public class RouteCollector {
     private String countryFrom;
     private String countryTo;

@@ -1,5 +1,8 @@
 package com.solvd.aviasales.domain.structure;
 
+import jakarta.xml.bind.annotation.XmlType;
+
+@XmlType(propOrder={"id", "countryFrom", "countryTo", "seatClass", "distance", "price", "airline"})
 public class Route {
     private Long id;
     private String countryFrom;
