@@ -181,8 +181,8 @@ public class ConsoleMenu {
         if (RESULT.getResult().size() > 0) {
             CollectorActions.showResultCollection(RESULT);
             generatedJsonFile = JsonParser.saveToJson(RESULT);
-            ZipArchiver.archiveFiles(generatedJsonFile);
             XmlParserJAXB.saveToXml(RESULT);
+            ZipArchiver.archiveJson(generatedJsonFile);
         } else {
             PRINT2LN.info("[Info]: Result file was not written because there were no actions!");
         }

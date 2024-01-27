@@ -19,7 +19,7 @@ public class XmlParserJAXB {
     private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
     private static final String resultFilePath = "src/main/resources/results/xml/result_" + formatter.format(new Date()) + ".xml";
 
-    public static void saveToXml(ResultCollector result) {
+    public static File saveToXml(ResultCollector result) {
         File directory = new File(resultDirectoryPath);
         if (!directory.exists()) {
             directory.mkdirs();
@@ -36,5 +36,7 @@ public class XmlParserJAXB {
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }
+
+        return file;
     }
 }

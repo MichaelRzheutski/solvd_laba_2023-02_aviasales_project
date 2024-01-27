@@ -10,14 +10,14 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class ZipArchiver {
-    private static final String resultDirectoryPath = "src/main/resources/zip";
+    private static final String resultDirectoryPath = "src/main/resources/results/zip";
     private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-    private static final String resultFilePath = "src/main/resources/zip/result_" + formatter.format(new Date()) + ".zip";
+    private static final String resultFilePath = "src/main/resources/results/zip/result_" + formatter.format(new Date()) + ".zip";
 
-    public static void archiveFiles(File generatedJsonFile) {
+    public static void archiveJson(File generatedJsonFile) {
         File directory = new File(resultDirectoryPath);
         if (!directory.exists()) {
-            directory.mkdir();
+            directory.mkdirs();
         }
         try (FileOutputStream zipFile = new FileOutputStream(resultFilePath);
              ZipOutputStream zip = new ZipOutputStream(zipFile)) {
