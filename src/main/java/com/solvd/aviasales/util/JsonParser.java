@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.solvd.aviasales.util.Printers.*;
+import static com.solvd.aviasales.util.Printers.PRINT2LN;
 
 public class JsonParser {
     private static final String resultDirectoryPath = "src/main/resources/results/json";
     private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
     private static final String resultFilePath = "src/main/resources/results/json/result_" + formatter.format(new Date()) + ".json";
 
-    public static void saveToJson(ResultCollector result) {
+    public static File saveToJson(ResultCollector result) {
         File directory = new File(resultDirectoryPath);
         if (!directory.exists()) {
             directory.mkdirs();
@@ -31,5 +31,7 @@ public class JsonParser {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        return file;
     }
 }
