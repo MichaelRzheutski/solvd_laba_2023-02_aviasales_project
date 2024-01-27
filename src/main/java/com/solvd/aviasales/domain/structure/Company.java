@@ -1,13 +1,20 @@
 package com.solvd.aviasales.domain.structure;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 import java.util.List;
 
 @JsonIgnoreProperties(value = { "airlines" })
+@XmlRootElement(name = "company")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Company {
     private Long id;
     private String title;
+    @XmlTransient
     private List<Airline> airlines;
 
     public Company() { }
