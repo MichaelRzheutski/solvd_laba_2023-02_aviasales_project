@@ -29,11 +29,11 @@ public class RouteActions implements IEntityActions {
     public void registerEntityEntry() {
         PRINT2LN.info("REGISTERING ROUTE");
         RouteService routeService = new RouteService();
-        String countryFrom = RequestMethods.getStringValueFromConsole("departure country");
-        String countryTo = RequestMethods.getStringValueFromConsole("arrival country");
+        String countryFrom = RequestMethods.getStringValueFromConsole("the departure country");
+        String countryTo = RequestMethods.getStringValueFromConsole("the arrival country");
         String seatClass = getSeatClassFromConsole();
-        Double distance = RequestMethods.getDoubleValueFromConsole("distance");
-        Double price = RequestMethods.getDoubleValueFromConsole("price");
+        Double distance = RequestMethods.getDoubleValueFromConsole("the distance");
+        Double price = RequestMethods.getDoubleValueFromConsole("the price");
         Airline airline = AirlineActions.getExistingAirlineFromConsole();
         Route route = new Route(countryFrom, countryTo, seatClass, distance, price, airline);
         routeService.save(route);
@@ -76,7 +76,7 @@ public class RouteActions implements IEntityActions {
             PRINT_AS_MENU.print(index, route.toString());
             index++;
         }
-        return airline.getRoutes().get(RequestMethods.getNumberFromChoice("route", index - 1) - 1);
+        return airline.getRoutes().get(RequestMethods.getNumberFromChoice("the route number", index - 1) - 1);
     }
 
     public static String getSeatClassFromConsole() {
@@ -93,7 +93,7 @@ public class RouteActions implements IEntityActions {
             PRINT_AS_MENU.print(index, seatClass);
             index++;
         }
-        return classes.get(RequestMethods.getNumberFromChoice("seat class", index - 1) - 1);
+        return classes.get(RequestMethods.getNumberFromChoice("the seat class number", index - 1) - 1);
     }
 
     private static Field getRouteClassFieldFromConsole() {
@@ -108,6 +108,6 @@ public class RouteActions implements IEntityActions {
                 index++;
             }
         }
-        return routeFields.get(RequestMethods.getNumberFromChoice("field", index - 1) - 1);
+        return routeFields.get(RequestMethods.getNumberFromChoice("the field number", index - 1) - 1);
     }
 }

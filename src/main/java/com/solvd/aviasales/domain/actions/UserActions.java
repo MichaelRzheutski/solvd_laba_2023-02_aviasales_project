@@ -1,15 +1,18 @@
 package com.solvd.aviasales.domain.actions;
 
 import com.solvd.aviasales.domain.actions.entity_actions.RouteActions;
+import com.solvd.aviasales.domain.session.ResultCollector;
 import com.solvd.aviasales.domain.session.floyd_warshall.CheapestRouteCalculator;
 import com.solvd.aviasales.domain.session.floyd_warshall.RouteCalculatorHelper;
 import com.solvd.aviasales.domain.session.RouteCollector;
 import com.solvd.aviasales.domain.session.floyd_warshall.ShortestRouteCalculator;
 import com.solvd.aviasales.domain.structure.Route;
 import com.solvd.aviasales.service.RouteService;
+import com.solvd.aviasales.util.ExcelParser;
 import com.solvd.aviasales.util.console_menu.RequestMethods;
 import com.solvd.aviasales.util.functional_interfaces.IPrintAsMenu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.solvd.aviasales.util.Printers.*;
@@ -84,7 +87,7 @@ public class UserActions {
             PRINT_AS_MENU.print(index, country);
             index++;
         }
-        return countries.get(RequestMethods.getNumberFromChoice("country", index - 1) - 1);
+        return countries.get(RequestMethods.getNumberFromChoice("the country number", index - 1) - 1);
     }
 
     private static int getTransfersNumberFromConsole() {
@@ -94,6 +97,55 @@ public class UserActions {
             PRINT_AS_MENU.print(index, transfer.getTitle());
             index++;
         }
-        return RequestMethods.getNumberFromChoice("number of transfers", index - 1);
+        return RequestMethods.getNumberFromChoice("the number of transfer's number", index - 1);
+    }
+
+    public static void chooseFinishRouteCollection(ResultCollector result) {
+        PRINT2LN.info("CHOICE OF FINISH ROUTE FROM SEARCH RESULT");
+        PRINTLN.info("Choose the route:");
+        List<List<Route>> collections = new ArrayList<>();
+        List<Double> prices = new ArrayList<>();
+        List<Double> distances = new ArrayList<>();
+        List<String> classes = new ArrayList<>();
+        List<Integer> transfers = new ArrayList<>();
+        for (RouteCollector collector : result.getResult()) {
+            collections.add(collector.getMinPriceRouteCollection());
+            prices.add(collector.getMinPriceRouteTotalPrice());
+            distances.add(collector.getMinPriceRouteTotalDistance());
+            classes.add(collector.getSeatClass());
+            transfers.add(collector.getTransfersNumber());
+
+            collections.add(collector.getMinDistanceRouteCollection());
+            prices.add(collector.getMinDistanceRouteTotalPrice());
+            distances.add(collector.getMinDistanceRouteTotalDistance());
+            classes.add(collector.getSeatClass());
+            transfers.add(collector.getTransfersNumber());
+        }
+
+        for (int i = 0; i < collections.size(); i++) {
+            List<String> countries = new ArrayList<>();
+            countries.add(collections.get(i).get(0).getCountryFrom() + "-");
+            if (collections.get(i).size() == 2) {
+                countries.add(collections.get(i).get(1).getCountryFrom() + "-");
+            }
+            if (collections.get(i).size() == 3) {
+                countries.add(collections.get(i).get(1).getCountryFrom() + "-");
+                countries.add(collections.get(i).get(1).getCountryTo() + "-");
+            }
+            if (collections.get(i).size() == 4) {
+                countries.add(collections.get(i).get(1).getCountryFrom() + "-");
+                countries.add(collections.get(i).get(2).getCountryFrom() + "-");
+                countries.add(collections.get(i).get(2).getCountryTo() + "-");
+            }
+            countries.add(collections.get(i).get(collections.get(i).size() - 1).getCountryTo());
+
+            PRINT_AS_MENU.print(i + 1, String.format("%s, %s class, $%s, %skm",
+                    String.join("", countries),
+                    classes.get(i),
+                    prices.get(i),
+                    distances.get(i)));
+        }
+        int index = RequestMethods.getNumberFromChoice("the route number", collections.size()) - 1;
+        ExcelParser.saveToExcel(collections.get(index), classes.get(index), prices.get(index), distances.get(index), transfers.get(index));
     }
 }
