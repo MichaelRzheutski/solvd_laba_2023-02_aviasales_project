@@ -1,6 +1,7 @@
 package com.solvd.aviasales.domain.actions;
 
 import com.solvd.aviasales.domain.actions.entity_actions.RouteActions;
+import com.solvd.aviasales.domain.session.FinalRoute;
 import com.solvd.aviasales.domain.session.ResultCollector;
 import com.solvd.aviasales.domain.session.floyd_warshall.CheapestRouteCalculator;
 import com.solvd.aviasales.domain.session.floyd_warshall.RouteCalculatorHelper;
@@ -146,6 +147,15 @@ public class UserActions {
                     distances.get(i)));
         }
         int index = RequestMethods.getNumberFromChoice("the route number", collections.size()) - 1;
-        ExcelParser.saveToExcel(collections.get(index), classes.get(index), prices.get(index), distances.get(index), transfers.get(index));
+        FinalRoute finalRoute = new FinalRoute();
+        finalRoute.setRouteName(String.format("%s-%s",
+                collections.get(index).get(0).getCountryFrom(),
+                collections.get(index).get(collections.get(index).size() - 1).getCountryTo()));
+        finalRoute.setRouteCollection(collections.get(index));
+        finalRoute.setSeatClass(classes.get(index));
+        finalRoute.setTotalPrice(prices.get(index));
+        finalRoute.setTotalDistance(distances.get(index));
+        finalRoute.setTransfers(transfers.get(index));
+        ExcelParser.saveToExcel(finalRoute);
     }
 }

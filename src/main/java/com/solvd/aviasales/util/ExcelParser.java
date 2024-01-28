@@ -1,5 +1,6 @@
 package com.solvd.aviasales.util;
 
+import com.solvd.aviasales.domain.session.FinalRoute;
 import com.solvd.aviasales.domain.structure.Route;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -10,7 +11,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import static com.solvd.aviasales.util.Printers.*;
 
@@ -19,12 +19,11 @@ public class ExcelParser {
     private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
     private static final String resultFilePath = "src/main/resources/results/excel/result_" + formatter.format(new Date()) + ".xlsx";
 
-    public static void saveToExcel(List<Route> collection, String seatClass, double price, double distance, int transfers) {
+    public static void saveToExcel(FinalRoute finalRoute) {
         File directory = new File(resultDirectoryPath);
         if (!directory.exists()) {
             directory.mkdirs();
         }
-        String routeName = String.format("%s-%s", collection.get(0).getCountryFrom(), collection.get(collection.size() - 1).getCountryTo());
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Chosen route collection");
         sheet.setColumnWidth(0, 7000);
@@ -32,18 +31,18 @@ public class ExcelParser {
         sheet.setColumnWidth(2, 4000);
         sheet.setColumnWidth(3, 4000);
 
-        createItem(workbook, sheet, "Route", routeName, 0);
-        createItem(workbook, sheet, "Seat class", seatClass, 1);
-        createItem(workbook, sheet, "Total price", "$" + price, 2);
-        createItem(workbook, sheet, "Total distance", distance + "km", 3);
-        if (transfers == 1) {
-            createItem(workbook, sheet, "Transfers, no more than", transfers + " item", 4);
+        createItem(workbook, sheet, "Route", finalRoute.getRouteName(), 0);
+        createItem(workbook, sheet, "Seat class", finalRoute.getSeatClass(), 1);
+        createItem(workbook, sheet, "Total price", "$" + finalRoute.getTotalPrice(), 2);
+        createItem(workbook, sheet, "Total distance", finalRoute.getTotalDistance() + "km", 3);
+        if (finalRoute.getTransfers() == 1) {
+            createItem(workbook, sheet, "Transfers, no more than", finalRoute.getTransfers() + " item", 4);
         } else {
-            createItem(workbook, sheet, "Transfers, no more than", transfers + " items", 4);
+            createItem(workbook, sheet, "Transfers, no more than", finalRoute.getTransfers() + " items", 4);
         }
         createItem(workbook, sheet, "Route chain", "", 5);
         int index = 6;
-        for (Route route : collection) {
+        for (Route route : finalRoute.getRouteCollection()) {
             createWideItem(workbook, sheet, index - 5 + " route", route, index);
             index++;
         }
