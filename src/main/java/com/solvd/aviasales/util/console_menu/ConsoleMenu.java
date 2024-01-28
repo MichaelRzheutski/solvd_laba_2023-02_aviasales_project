@@ -5,8 +5,8 @@ import com.solvd.aviasales.domain.actions.UserActions;
 import com.solvd.aviasales.domain.session.ResultCollector;
 import com.solvd.aviasales.domain.session.RouteCollector;
 import com.solvd.aviasales.util.JsonParser;
-import com.solvd.aviasales.util.ZipArchiver;
 import com.solvd.aviasales.util.XmlParserJAXB;
+import com.solvd.aviasales.util.ZipArchiver;
 import com.solvd.aviasales.util.console_menu.menu_enums.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -177,12 +177,13 @@ public class ConsoleMenu {
 
     private ConsoleMenu tearDown() {
         File generatedJsonFile;
+        File generatedXmlFile;
         RequestMethods.closeScanner();
         if (RESULT.getResult().size() > 0) {
             CollectorActions.showResultCollection(RESULT);
             generatedJsonFile = JsonParser.saveToJson(RESULT);
-            XmlParserJAXB.saveToXml(RESULT);
-            ZipArchiver.archiveJson(generatedJsonFile);
+            generatedXmlFile = XmlParserJAXB.saveToXml(RESULT);
+            ZipArchiver.archiveFiles(generatedJsonFile, generatedXmlFile);
         } else {
             PRINT2LN.info("[Info]: Result file was not written because there were no actions!");
         }
