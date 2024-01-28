@@ -49,6 +49,10 @@ public class ConsoleMenu {
                 return runUserMenu();
             }
             case (2) -> {
+                UserActions.chooseFinishRouteCollection(RESULT);
+                return runUserMenu();
+            }
+            case (3) -> {
                 return runMainMenu();
             }
             default -> {

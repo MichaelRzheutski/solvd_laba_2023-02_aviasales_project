@@ -42,7 +42,7 @@ public class CompanyActions implements IEntityActions {
     public void registerEntityEntry() {
         PRINT2LN.info("REGISTERING COMPANY");
         CompanyService companyService = new CompanyService();
-        String title = RequestMethods.getStringValueFromConsole("company title");
+        String title = RequestMethods.getStringValueFromConsole("the company title");
         Company company = new Company(title);
         companyService.save(company);
         PRINT2LN.info(String.format("COMPANY %s WAS REGISTERED", title));
@@ -79,7 +79,7 @@ public class CompanyActions implements IEntityActions {
             PRINT_AS_MENU.print(index, company.getTitle());
             index++;
         }
-        return companies.get(RequestMethods.getNumberFromChoice("company", index - 1) - 1);
+        return companies.get(RequestMethods.getNumberFromChoice("the company number", index - 1) - 1);
     }
 
     private static Field getCompanyClassFieldFromConsole() {
@@ -94,6 +94,6 @@ public class CompanyActions implements IEntityActions {
                 index++;
             }
         }
-        return companyFields.get(RequestMethods.getNumberFromChoice("field", index - 1) - 1);
+        return companyFields.get(RequestMethods.getNumberFromChoice("the field number", index - 1) - 1);
     }
 }

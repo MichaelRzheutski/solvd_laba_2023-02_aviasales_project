@@ -35,7 +35,7 @@ public class AirlineActions implements IEntityActions {
     public void registerEntityEntry() {
         PRINT2LN.info("REGISTERING AIRLINE");
         AirlineService airlineService = new AirlineService();
-        String title = RequestMethods.getStringValueFromConsole("airline title");
+        String title = RequestMethods.getStringValueFromConsole("the airline title");
         Company company = CompanyActions.getExistingCompanyFromConsole();
         Airline airline = new Airline(title, company);
         airlineService.save(airline);
@@ -74,7 +74,7 @@ public class AirlineActions implements IEntityActions {
             PRINT_AS_MENU.print(index, airline.getTitle());
             index++;
         }
-        return airlines.get(RequestMethods.getNumberFromChoice("airline", index - 1) - 1);
+        return airlines.get(RequestMethods.getNumberFromChoice("the airline number", index - 1) - 1);
     }
 
     private static Field getAirlineClassFieldFromConsole() {
@@ -89,6 +89,6 @@ public class AirlineActions implements IEntityActions {
                 index++;
             }
         }
-        return airlineFields.get(RequestMethods.getNumberFromChoice("field", index - 1) - 1);
+        return airlineFields.get(RequestMethods.getNumberFromChoice("the field number", index - 1) - 1);
     }
 }
