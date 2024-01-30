@@ -102,8 +102,7 @@ public class UserActions {
     }
 
     public static void chooseFinishRouteCollection(ResultCollector result) {
-        PRINT2LN.info("CHOICE OF FINISH ROUTE FROM SEARCH RESULT");
-        PRINTLN.info("Choose the route:");
+        PRINT2LN.info("CHOICE OF FINISH ROUTE IN SEARCH RESULT");
         List<List<Route>> collections = new ArrayList<>();
         List<Double> prices = new ArrayList<>();
         List<Double> distances = new ArrayList<>();
@@ -122,40 +121,48 @@ public class UserActions {
             classes.add(collector.getSeatClass());
             transfers.add(collector.getTransfersNumber());
         }
+        if (collections.stream().mapToInt(List::size).sum() > 0) {
+            int counter = 0;
+            PRINTLN.info("Choose the route:");
+            for (int i = 0; i < collections.size(); i++) {
+                if (collections.get(i).size() > 0) {
+                    counter++;
+                    List<String> countries = new ArrayList<>();
+                    countries.add(collections.get(i).get(0).getCountryFrom() + "-");
+                    if (collections.get(i).size() == 2) {
+                        countries.add(collections.get(i).get(1).getCountryFrom() + "-");
+                    }
+                    if (collections.get(i).size() == 3) {
+                        countries.add(collections.get(i).get(1).getCountryFrom() + "-");
+                        countries.add(collections.get(i).get(1).getCountryTo() + "-");
+                    }
+                    if (collections.get(i).size() == 4) {
+                        countries.add(collections.get(i).get(1).getCountryFrom() + "-");
+                        countries.add(collections.get(i).get(2).getCountryFrom() + "-");
+                        countries.add(collections.get(i).get(2).getCountryTo() + "-");
+                    }
+                    countries.add(collections.get(i).get(collections.get(i).size() - 1).getCountryTo());
 
-        for (int i = 0; i < collections.size(); i++) {
-            List<String> countries = new ArrayList<>();
-            countries.add(collections.get(i).get(0).getCountryFrom() + "-");
-            if (collections.get(i).size() == 2) {
-                countries.add(collections.get(i).get(1).getCountryFrom() + "-");
+                    PRINT_AS_MENU.print(i + 1, String.format("%s, %s class, $%s, %skm",
+                            String.join("", countries),
+                            classes.get(i),
+                            prices.get(i),
+                            distances.get(i)));
+                }
             }
-            if (collections.get(i).size() == 3) {
-                countries.add(collections.get(i).get(1).getCountryFrom() + "-");
-                countries.add(collections.get(i).get(1).getCountryTo() + "-");
-            }
-            if (collections.get(i).size() == 4) {
-                countries.add(collections.get(i).get(1).getCountryFrom() + "-");
-                countries.add(collections.get(i).get(2).getCountryFrom() + "-");
-                countries.add(collections.get(i).get(2).getCountryTo() + "-");
-            }
-            countries.add(collections.get(i).get(collections.get(i).size() - 1).getCountryTo());
-
-            PRINT_AS_MENU.print(i + 1, String.format("%s, %s class, $%s, %skm",
-                    String.join("", countries),
-                    classes.get(i),
-                    prices.get(i),
-                    distances.get(i)));
+            int index = RequestMethods.getNumberFromChoice("the route number", counter) - 1;
+            FinalRoute finalRoute = new FinalRoute();
+            finalRoute.setRouteName(String.format("%s-%s",
+                    collections.get(index).get(0).getCountryFrom(),
+                    collections.get(index).get(collections.get(index).size() - 1).getCountryTo()));
+            finalRoute.setRouteCollection(collections.get(index));
+            finalRoute.setSeatClass(classes.get(index));
+            finalRoute.setTotalPrice(prices.get(index));
+            finalRoute.setTotalDistance(distances.get(index));
+            finalRoute.setTransfers(transfers.get(index));
+            ExcelParser.saveToExcel(finalRoute);
+        } else {
+            PRINTLN.info("[Warning]: Not found routes in search results!");
         }
-        int index = RequestMethods.getNumberFromChoice("the route number", collections.size()) - 1;
-        FinalRoute finalRoute = new FinalRoute();
-        finalRoute.setRouteName(String.format("%s-%s",
-                collections.get(index).get(0).getCountryFrom(),
-                collections.get(index).get(collections.get(index).size() - 1).getCountryTo()));
-        finalRoute.setRouteCollection(collections.get(index));
-        finalRoute.setSeatClass(classes.get(index));
-        finalRoute.setTotalPrice(prices.get(index));
-        finalRoute.setTotalDistance(distances.get(index));
-        finalRoute.setTransfers(transfers.get(index));
-        ExcelParser.saveToExcel(finalRoute);
     }
 }
