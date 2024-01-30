@@ -50,7 +50,7 @@ public class ConsoleMenu {
         }
     }
 
-    public ConsoleMenu runAdminMenu() {
+    private ConsoleMenu runAdminMenu() {
         int answer = drawAnyMenuAndChooseMenuItem("ADMIN MENU:", AdminMenu.values());
         switch (answer) {
             case (1) -> {
