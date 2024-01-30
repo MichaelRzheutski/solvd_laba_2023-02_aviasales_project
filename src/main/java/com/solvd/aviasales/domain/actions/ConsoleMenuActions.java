@@ -29,7 +29,6 @@ public class ConsoleMenuActions {
         } else {
             PRINT2LN.info("[Info]: Result file was not written because there were no actions!");
         }
-        PRINTLN.info("GOOD BYE!");
     }
 
     public static boolean authenticationActions() {
