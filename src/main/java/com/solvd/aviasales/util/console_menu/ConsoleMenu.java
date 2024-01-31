@@ -1,26 +1,15 @@
 package com.solvd.aviasales.util.console_menu;
 
 import com.solvd.aviasales.domain.actions.CollectorActions;
+import com.solvd.aviasales.domain.actions.ConsoleMenuActions;
 import com.solvd.aviasales.domain.actions.UserActions;
 import com.solvd.aviasales.domain.session.ResultCollector;
 import com.solvd.aviasales.domain.session.RouteCollector;
-import com.solvd.aviasales.util.JsonParser;
-import com.solvd.aviasales.util.XmlParserJAXB;
-import com.solvd.aviasales.util.ZipArchiver;
 import com.solvd.aviasales.util.console_menu.menu_enums.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
-import static com.solvd.aviasales.util.Printers.PRINT2LN;
-import static com.solvd.aviasales.util.Printers.PRINTLN;
+import static com.solvd.aviasales.util.Printers.*;
 
 public class ConsoleMenu {
-    protected static final Logger LOGGER = LogManager.getLogger(ConsoleMenu.class);
     protected static EntityActionsService ENTITY_ACTIONS_SERVICE = EntityActionsService.getInstance();
     private static final ResultCollector RESULT = new ResultCollector();
 
@@ -180,35 +169,18 @@ public class ConsoleMenu {
     }
 
     private ConsoleMenu tearDown() {
-        File generatedJsonFile;
-        File generatedXmlFile;
+        ConsoleMenuActions.tearDownActions(RESULT);
         RequestMethods.closeScanner();
-        if (RESULT.getResult().size() > 0) {
-            CollectorActions.showResultCollection(RESULT);
-            generatedJsonFile = JsonParser.saveToJson(RESULT);
-            generatedXmlFile = XmlParserJAXB.saveToXml(RESULT);
-            ZipArchiver.archiveFiles(generatedJsonFile, generatedXmlFile);
-        } else {
-            PRINT2LN.info("[Info]: Result file was not written because there were no actions!");
-        }
         PRINTLN.info("GOOD BYE!");
         return null;
     }
 
     private ConsoleMenu authentication() {
         PRINT2LN.info("AUTHENTICATION");
-        String password = RequestMethods.getStringValueFromConsole("admin password");
-        Properties property = new Properties();
-        try (FileInputStream fis = new FileInputStream("src/main/resources/config.properties")) {
-            property.load(fis);
-            if (password.equals(property.getProperty("admin.password"))) {
-                PRINTLN.info("[Info]: Password is correct!");
-                return runAdminMenu();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("You have been problem with reading from property file!", e);
+        if (ConsoleMenuActions.authenticationActions()) {
+            return runAdminMenu();
+        } else {
+            return runMainMenu();
         }
-        LOGGER.error("[Warning]: Password is incorrect!");
-        return runMainMenu();
     }
 }
